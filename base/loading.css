@@ -1,0 +1,28 @@
+html,body{
+    display: grid;
+    height: 100%;
+    place-items: center;
+    background: #1e1d37;
+    overflow: hidden;
+  }
+  h1{
+    height: 125px;
+    width: 125px;
+    display: inline-block;
+    border: 2px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    border-left-color: #ffffff;
+    animation: rotate 1.2s linear infinite;
+  }
+  @keyframes rotate {
+    50%{
+      border-left-color: #ffffff;
+    }
+    75%{
+      border-left-color: #ffffff;
+    }
+    100%{
+      transform: rotate(360deg);
+    }
+  }
+  

@@ -8,6 +8,7 @@ const { version } = require("./package.json");
 
 let url = "https://panel.bluefoxhost.com";
 let date = new Date();
+let loading;
 let win;
 
 // Loads modules
@@ -16,56 +17,90 @@ require('./modules/functions.js')(client);
 app.on('ready', async () => {
 
     win = new BrowserWindow({
-        title: `BlueFox App Starting... (v${version})`,
         icon: "./images/icon/bluefox.ico",
         center: true,
         resizable: true,
-        width: 1200,
-        height: 1000,
+        show: false,
+        width: 1500,
+        height: 900,
+        minWidth: 1050,
+        minHeight: 650,
         webPreferences: {
             nodeIntegration: false,
             show: false
         }
     });
 
-    win.removeMenu();
-    await win.loadURL(url);
-
-    win.webContents.on("devtools-opened", () => {
-        win.webContents.closeDevTools();
+    loading = new BrowserWindow({
+        icon: "./images/icon/bluefox.ico",
+        center: true,
+        resizable: true,
+        frame: false,
+        width: 1500,
+        height: 900,
+        minWidth: 1050,
+        minHeight: 650,
+        webPreferences: {
+            nodeIntegration: false,
+            show: false
+        },
     });
+
+    win.removeMenu();
+    loading.removeMenu();
     
-    // load custom scrollbar
+    loading.loadFile('./base/loading.html');
+    win.loadURL(url);
+
     win.webContents.on('did-finish-load', () => {
         win.webContents.insertCSS(`
-            ::-webkit-scrollbar {
-                width: 30px;
+    
+            ::-webkit-scrollbar
+            {
+                width: 20px;
+                background-color: #1e1d37;
             }
 
-            ::-webkit-scrollbar-track {
-                background: #1e1d37; 
+            ::-webkit-scrollbar-track
+            {
+                border-radius: 10px;
+                background-color: #1e1d37;
             }
-                
-            ::-webkit-scrollbar-thumb {
-                background: #2a2949; 
+    
+            ::-webkit-scrollbar-thumb
+            {
+                border-radius: 10px;
+                background-color: #2a2949;
             }
-
+    
             ::-webkit-scrollbar-thumb:hover {
                 background: #23223f; 
             }
         `);
     });
 
+    win.webContents.on("devtools-opened", () => {
+        win.webContents.closeDevTools();
+    });
+
+    loading.webContents.on("devtools-opened", () => {
+        win.webContents.closeDevTools();
+    });
+
     win.once('ready-to-show',async () => {
+        loading.destroy();
         win.show();
     });
 
-    win.on('closed',() => {
+    loading.on('closed', () => {
+        loading = null;
+    })
+
+    win.on('closed', () => {
         win = null;
     });
 
     win.on('page-title-updated', async () => {
-        console.log(win.webContents.get)
         await client.updatePresence({
             state: win.webContents.getTitle().split(" - ")[1].replace("Viewing Server", ""),
             details: win.webContents.getTitle().split(" - ")[0],
