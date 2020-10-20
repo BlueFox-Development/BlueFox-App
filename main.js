@@ -33,6 +33,7 @@ app.on('ready', async () => {
         minHeight: 650,
         webPreferences: {
             nodeIntegration: false,
+            contextIsolation: true,
             show: false
         }
     });
@@ -48,6 +49,7 @@ app.on('ready', async () => {
         minHeight: 650,
         webPreferences: {
             nodeIntegration: false,
+            contextIsolation: true,
             show: false
         },
     });
