@@ -34,7 +34,6 @@ app.on('ready', async () => {
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
-            show: false
         }
     });
 
@@ -50,7 +49,6 @@ app.on('ready', async () => {
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
-            show: false
         },
     });
 
