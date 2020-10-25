@@ -18,6 +18,13 @@ let date = new Date();
 let loading;
 let win;
 
+// Auto Updater
+require('update-electron-app')({
+    repo: 'BlueFox-Development/BlueFox-App',
+    updateInterval: '1 hour',
+    logger: require('electron-log')
+})
+
 // Loads modules
 require('./modules/functions.js')(client);
 
