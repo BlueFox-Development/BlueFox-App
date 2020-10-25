@@ -1,13 +1,13 @@
 {
 	"name": "BlueFox",
-	"version": "1.0.1",
+	"version": "1.0.0",
 	"description": "Bluefox App",
 	"main": "main.js",
 	"scripts": {
 		"start": "electron .",
-		"mac:installer": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
-		"win:installer": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=images/icon/bluefox.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Bluefox\" && node installers/windows/createinstaller.js",
-		"linux:installer": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/icon.png --prune=true --out=release-builds"
+		"installer:mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+		"installer:win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=images/icon/bluefox.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Bluefox\" && node installers/windows/createinstaller.js",
+		"installer:linux": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/icon.png --prune=true --out=release-builds"
 	},
 	"authors": [
 		"Pellucid",
@@ -18,8 +18,10 @@
 	"dependencies": {
 		"discord-rich-presence": "0.0.8",
 		"discord.js": "^12.3.1",
+		"electron-log": "^4.2.4",
 		"moment": "^2.27.0",
 		"node-notifier": "^8.0.0",
+		"update-electron-app": "^2.0.1",
 		"web-remote-control": "^1.9.8",
 		"webhook-discord": "^3.7.5"
 	},

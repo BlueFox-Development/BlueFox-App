@@ -1,4 +1,4 @@
-const createWindowsInstaller = require('electron-winstaller').createWindowsInstaller
+const{ createWindowsInstaller } = require('electron-winstaller')
 const path = require('path')
 
 getInstallerConfig()
