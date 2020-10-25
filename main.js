@@ -6,12 +6,13 @@ if (setupEvents.handleSquirrelEvent()) {
 }
 
 const electron = require('electron');
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow } = electron
 const client = require('discord-rich-presence')("750914713977749556");
 
 // Load version from package.json
 const { version } = require("./package.json");
 
+let load = './base/loading.html'
 let url = "https://panel.bluefoxhost.com";
 let date = new Date();
 let loading;
@@ -55,7 +56,7 @@ app.on('ready', async () => {
     win.removeMenu();
     loading.removeMenu();
     
-    loading.loadFile('./base/loading.html');
+    loading.loadFile(load);
     win.loadURL(url);
 
     win.webContents.on('did-finish-load', () => {
@@ -120,8 +121,8 @@ app.on('ready', async () => {
 
     win.on('focus', async () => {
         await client.updatePresence({
-            state: "Page: " + win.webContents.getTitle().split(" - ")[1].replace("Viewing Server", ""),
-            details: "Site: " + win.webContents.getTitle().split(" - ")[0],
+            state: win.webContents.getTitle().split(" - ")[1].replace("Viewing Server", ""),
+            details: win.webContents.getTitle().split(" - ")[0],
             startTimestamp: date,
             largeImageKey: "bluefox",
             largeImageText: "BlueFoxHost.com",
