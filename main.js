@@ -26,9 +26,11 @@ require('update-electron-app')({
 })
 
 // Loads modules
-require('./modules/functions.js')(client);
+let helper = require('./modules/functions.js');
 
 app.on('ready', async () => {
+
+    helper.initHearbeat(60000);
 
     win = new BrowserWindow({
         icon: "./images/icon/bluefox.ico",
@@ -62,7 +64,7 @@ app.on('ready', async () => {
 
     win.removeMenu();
     loading.removeMenu();
-    
+
     loading.loadFile(load);
     win.loadURL(url);
 

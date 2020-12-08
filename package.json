@@ -26,6 +26,7 @@
 		"webhook-discord": "^3.7.5"
 	},
 	"devDependencies": {
+		"axios": "^0.21.0",
 		"electron": "^10.1.5",
 		"electron-packager": "^15.1.0",
 		"electron-winstaller": "^4.0.1"

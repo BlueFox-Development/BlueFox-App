@@ -1,23 +1,34 @@
 const moment = require('moment');
+const axios = require('axios');
 
-module.exports = (client) => {
+module.exports = {
 
-    client.wait = (ms) => {
+    wait(ms) {
         let start = new Date().getTime();
         let end = start;
         while (end < start + ms) {
             end = new Date().getTime()
         }
         return;
-    }
+    },
 
-    client.log = (msg) => {
-        let time = moment().format(client.config.timeFormat);
-        console.log(`${time} [LOG] ${msg}`);
-    };
+    initHearbeat(interval=15000) {
+        let that = this;
+        this.heartbeat();
+        setInterval(function () {
+            that.heartbeat();
+        }, interval)
+    },
 
-    client.heartbeat = () => {
-        setInterval()
+    heartbeat() {
+        axios.post('http://api.bluefoxhost.com:4000/v1/host/app/heartbeat')
+            .then(function (response) {
+                if (response.status === 200) console.log("Successful heartbeat");
+                else console.error("Unsuccessful heartbeat");
+            })
+            .catch(function (error) {
+                console.error(`Heartbeat skipped: (${error})`);
+            });
     }
 
 }
